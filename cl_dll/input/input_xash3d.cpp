@@ -1,4 +1,5 @@
 #include "hud.h"
+#include "aim_assist.h"
 #include "usercmd.h"
 #include "cvardef.h"
 #include "kbutton.h"
@@ -176,6 +177,12 @@ void IN_Move( float frametime, usercmd_t *cmd )
 		rel_yaw *= sensitivity->value;
 		rel_pitch *= sensitivity->value;
 	}
+		// Aim assist level 1: slow the crosshair down near enemies (local games only)
+	{
+		float aaSlow = AimAssist_GetSlowdown( viewangles );
+		rel_yaw *= aaSlow;
+		rel_pitch *= aaSlow;
+}
 	if(gHUD.m_MOTD.cl_hide_motd->value == 0.0f && gHUD.m_MOTD.m_bShow)
 	{
 		gHUD.m_MOTD.scroll += rel_pitch;
