@@ -280,6 +280,7 @@ void IN_Init( void )
 	in_joystick = gEngfuncs.pfnRegisterVariable ( "joystick", "0", FCVAR_ARCHIVE );
 	cl_laddermode = gEngfuncs.pfnRegisterVariable ( "cl_laddermode", "2", FCVAR_ARCHIVE );
 	evdev_grab = gEngfuncs.pfnGetCvarPointer("evdev_grab");
+		AimAssist_Init();
 
 	ac_forwardmove = ac_sidemove = rel_yaw = rel_pitch = 0;
 }
