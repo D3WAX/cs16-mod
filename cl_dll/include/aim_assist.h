@@ -20,3 +20,8 @@ void AimAssist_Apply( float *viewangles, float frametime );
 // Always 1.0 when not in a local game. Used by the client side bullet prediction.
 // The server side counterpart is added by scripts/patch_regamedll.py.
 float AimAssist_GetSpreadScale( void );
+
+// Weapon recoil multiplier ("recoil_scale" cvar): 1.0 = normal, 0.5 = half, 0 = no recoil.
+// Always 1.0 when not in a local game. Used by the client side weapon prediction.
+// The server side counterpart is added by scripts/patch_regamedll.py.
+float AimAssist_GetRecoilScale( void );
