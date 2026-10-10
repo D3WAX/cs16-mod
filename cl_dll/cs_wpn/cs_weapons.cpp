@@ -27,6 +27,7 @@
 
 #define PLAYER_H
 #include "weapons.h"
+#include "aim_assist.h"
 #undef PLAYER_H
 
 #include "nodes.h"
@@ -518,6 +519,8 @@ void CBasePlayerWeapon::RetireWeapon()
 Vector CBaseEntity::FireBullets3 ( Vector vecSrc, Vector vecDirShooting, float flSpread, float flDistance, int iPenetration, int iBulletType, int iDamage, float flRangeModifier, entvars_t *pevAttacker, bool bPistol, int shared_rand )
 {
 	float x, y, z;
+		// spread_scale cvar (local games only), matches the server side patch
+	flSpread *= AimAssist_GetSpreadScale();
 
 	if ( pevAttacker )
 	{
