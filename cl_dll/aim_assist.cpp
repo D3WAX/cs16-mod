@@ -42,6 +42,7 @@ static cvar_t *aim_assist_speed;
 static cvar_t *aim_assist_onfire;
 static cvar_t *aim_assist_headz;
 static cvar_t *spread_scale;
+static cvar_t *recoil_scale;
 
 static bool AimAssist_IsLocalGame( void )
 {
@@ -80,6 +81,7 @@ void AimAssist_Init( void )
 	aim_assist_onfire = gEngfuncs.pfnRegisterVariable( "aim_assist_onfire", "0", FCVAR_ARCHIVE );
 	aim_assist_headz = gEngfuncs.pfnRegisterVariable( "aim_assist_headz", "18", FCVAR_ARCHIVE );
     spread_scale = gEngfuncs.pfnRegisterVariable( "spread_scale", "1", FCVAR_ARCHIVE );
+	recoil_scale = gEngfuncs.pfnRegisterVariable( "recoil_scale", "1", FCVAR_ARCHIVE );
 
 	gEngfuncs.pfnAddCommand( "aim_assist_status", AimAssist_Status );
 }
@@ -96,6 +98,20 @@ float AimAssist_GetSpreadScale( void )
 		return 1.0f;
 
 	return spread_scale->value < 0.0f ? 0.0f : ( spread_scale->value > 5.0f ? 5.0f : spread_scale->value );
+}
+
+// Weapon recoil multiplier for the local player (client side prediction).
+// The server reads the same cvar, see scripts/patch_regamedll.py.
+float AimAssist_GetRecoilScale( void )
+{
+	if( !recoil_scale || recoil_scale->value == 1.0f )
+		return 1.0f;
+
+	// Local game only. Remote servers: always normal recoil.
+	if( !AimAssist_IsLocalGame() )
+		return 1.0f;
+
+	return recoil_scale->value < 0.0f ? 0.0f : ( recoil_scale->value > 5.0f ? 5.0f : recoil_scale->value );
 }
 
 static float AngleDiff( float a, float b )
