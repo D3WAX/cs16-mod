@@ -202,6 +202,8 @@ void IN_Move( float frametime, usercmd_t *cmd )
 		viewangles[PITCH] = cl_pitchdown->value;
 	if (viewangles[PITCH] < -cl_pitchup->value)
 		viewangles[PITCH] = -cl_pitchup->value;
+		// Aim assist levels 2-3: pull the view toward the enemy's head (local games only)
+	AimAssist_Apply( viewangles, frametime );
 
 
 	if( !CL_IsDead( ) )
