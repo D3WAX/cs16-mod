@@ -12,6 +12,8 @@ jobs:
         with:
           fetch-depth: 1
           submodules: recursive
+      - name: Patch ReGameDLL (spread scale)
+        run: python3 scripts/patch_regamedll.py
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
