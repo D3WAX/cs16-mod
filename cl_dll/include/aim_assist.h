@@ -15,3 +15,8 @@ float AimAssist_GetSlowdown( const float *viewangles );
 // Levels 2-3: pulls viewangles toward the best enemy.
 // Call each frame after rel_yaw / rel_pitch were added and before SetViewAngles().
 void AimAssist_Apply( float *viewangles, float frametime );
+
+// Weapon spread multiplier ("spread_scale" cvar): 1.0 = normal, 0.5 = half, 0 = no spread.
+// Always 1.0 when not in a local game. Used by the client side bullet prediction.
+// The server side counterpart is added by scripts/patch_regamedll.py.
+float AimAssist_GetSpreadScale( void );
